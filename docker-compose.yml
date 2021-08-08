@@ -33,13 +33,3 @@ services:
     ports:
       - 5432:5432
 
-    ### Postgres Adminer ###
-  postgres_admin:
-    image: dpage/pgadmin4:4.28
-    depends_on:
-      - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.de
-      PGADMIN_DEFAULT_PASSWORD: password
-    ports:
-      - 5050:80
