@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       context: .
       # Only will build development stage from our dockerfile
-      target: development
+      target: ${NODE_ENV}
     # Mount our host Directory to the docker container
     # Mount (.) current directory to the docker container /src/app
     # reflect file changes from host to container
@@ -13,7 +13,8 @@ services:
       - .:/usr/app
       - .:/usr/app/node_modules
     # Run in dev Mode: npm run start:dev
-    command: npm run start:dev
+    # Run in prod Mode: npm run start:prod
+    command: ${COMMAND}
     restart: unless-stopped
     depends_on:
       - postgres
