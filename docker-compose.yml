@@ -17,7 +17,7 @@ services:
     depends_on:
       - db
     build: .
-    command: yarn start:dev
+    command: npm run start:dev
     restart: unless-stopped
     ports:
       - ${API_PORT}:${API_PORT}

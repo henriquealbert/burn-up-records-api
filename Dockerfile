@@ -1,13 +1,12 @@
 FROM node:16-alpine
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn
+RUN npm i -g @nestjs/cli
+
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
-EXPOSE 8080
-
-CMD ["yarn", "start:dev"]
+CMD ["npm", "start:dev"]
