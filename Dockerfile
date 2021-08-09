@@ -14,13 +14,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Here we install all the deps
-RUN npm install
+RUN yarn install
 
 # Bundle app source / copy all other files
 COPY . .
 
 # Build the app to the /dist folder
-RUN npm run build
+RUN yarn build
 
 
 ################
@@ -43,5 +43,5 @@ COPY --from=development /usr/src/app/ .
 EXPOSE 8080
 
 # Run app
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "yarn", "start:prod" ]
 
