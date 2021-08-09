@@ -7,15 +7,15 @@ import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      synchronize: Boolean(process.env.DB_SYNC),
+      username: 'postgres',
+      password: 'postgres',
+      database: 'postgres',
+      synchronize: true,
       entities: ['dist/**/*.entity{.ts,.js}']
     }),
     GraphQLModule.forRoot({
