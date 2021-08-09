@@ -40,7 +40,7 @@ WORKDIR /usr/src/app
 COPY --from=development /usr/src/app/ .
 
 
-EXPOSE 8080
+EXPOSE 3333
 
 # Run app
 CMD [ "yarn", "start:prod" ]

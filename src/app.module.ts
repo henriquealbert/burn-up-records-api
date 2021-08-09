@@ -8,16 +8,7 @@ import { UsersModule } from './users/users.module'
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
-      synchronize: true,
-      entities: ['dist/**/*.entity{.ts,.js}']
-    }),
+    TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql')
     }),

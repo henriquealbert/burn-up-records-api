@@ -31,7 +31,7 @@ $ cp .env.example .env
 # Run docker compose
 $ docker-compose up
 
-# The server will start on port 8080 - visit <http://localhost:8080/graphql> to play with the GraphQL Playground
+# The server will start on port 3333 - visit <http://localhost:3333/graphql> to play with the GraphQL Playground
 ```
 
 ### 🛠 Techs
