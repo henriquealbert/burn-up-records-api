@@ -33,8 +33,8 @@ export class UsersService {
     return user
   }
 
-  async update(data: UpdateUserInput): Promise<User> {
-    const user = await this.findById(data.id)
+  async update(id: string, data: UpdateUserInput): Promise<User> {
+    const user = await this.findById(id)
     if (!user) {
       throw new NotFoundException('User not found')
     }
@@ -43,7 +43,8 @@ export class UsersService {
 
   async delete(id: string): Promise<User> {
     const user = await this.findById(id)
-    const userDeleted = await this.userRepository.delete(user)
+    const userDeleted = await this.userRepository.delete(id)
+
     if (!userDeleted) {
       throw new InternalServerErrorException()
     }
