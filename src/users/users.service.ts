@@ -2,12 +2,12 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException
-} from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { CreateUserInput } from './dto/create-user.input'
-import { UpdateUserInput } from './dto/update-user.input'
-import { User } from './entities/user.entity'
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,37 +17,37 @@ export class UsersService {
   ) {}
 
   async create(data: CreateUserInput): Promise<User> {
-    const user = this.userRepository.create(data)
-    return await this.userRepository.save(user)
+    const user = this.userRepository.create(data);
+    return await this.userRepository.save(user);
   }
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.find()
+    return await this.userRepository.find();
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.userRepository.findOne(id)
+    const user = await this.userRepository.findOne(id);
     if (!user) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException('User not found');
     }
-    return user
+    return user;
   }
 
   async update(id: string, data: UpdateUserInput): Promise<User> {
-    const user = await this.findById(id)
+    const user = await this.findById(id);
     if (!user) {
-      throw new NotFoundException('User not found')
+      throw new NotFoundException('User not found');
     }
-    return this.userRepository.save({ ...user, ...data })
+    return this.userRepository.save({ ...user, ...data });
   }
 
   async delete(id: string): Promise<User> {
-    const user = await this.findById(id)
-    const userDeleted = await this.userRepository.delete(id)
+    const user = await this.findById(id);
+    const userDeleted = await this.userRepository.delete(id);
 
     if (!userDeleted) {
-      throw new InternalServerErrorException()
+      throw new InternalServerErrorException();
     }
-    return user
+    return user;
   }
 }
