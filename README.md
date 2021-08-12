@@ -5,7 +5,7 @@
 ### ✨ Features
 
 - [x] Users table
-- [ ] Authentication
+- [x] Authentication
 - [ ] Roles table
 - [ ] Releases table
 - [ ] Tracks table
@@ -43,3 +43,5 @@ $ docker-compose up
 - Node.js
 - Apollo Server
 - Jest
+- Passaport
+- JWT
