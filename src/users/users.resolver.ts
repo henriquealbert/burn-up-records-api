@@ -1,8 +1,12 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+
+import { GqlAuthGuard } from 'src/auth/auth.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -13,16 +17,25 @@ export class UsersResolver {
     return await this.usersService.create(data);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [User], { name: 'users' })
   async findAllUsers(): Promise<User[]> {
     return await this.usersService.findAll();
   }
 
-  @Query(() => User, { name: 'findUserById' })
+  @UseGuards(GqlAuthGuard)
+  @Query(() => User, { name: 'user' })
   async findUserById(@Args('id') id: string): Promise<User> {
     return await this.usersService.findById(id);
   }
 
+  @UseGuards(GqlAuthGuard)
+  @Query(() => User, { name: 'userByEmail' })
+  async findUserByEmail(@Args('email') email: string): Promise<User> {
+    return await this.usersService.findByEmail(email);
+  }
+
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
   async updateUser(
     @Args('id') id: string,
@@ -31,6 +44,7 @@ export class UsersResolver {
     return await this.usersService.update(id, data);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => User)
   async deleteUser(@Args('id') id: string): Promise<User> {
     return await this.usersService.delete(id);
