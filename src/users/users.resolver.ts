@@ -7,6 +7,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 
 import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { CurrentUser } from './currentUser';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -15,6 +16,12 @@ export class UsersResolver {
   @Mutation(() => User)
   async createUser(@Args('data') data: CreateUserInput): Promise<User> {
     return await this.usersService.create(data);
+  }
+
+  @Query(() => User)
+  @UseGuards(GqlAuthGuard)
+  me(@CurrentUser() user: User) {
+    return this.usersService.findById(user.id);
   }
 
   @UseGuards(GqlAuthGuard)

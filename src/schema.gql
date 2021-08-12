@@ -14,6 +14,7 @@ type AuthType {
 }
 
 type Query {
+  me: User!
   users: [User!]!
   user(id: String!): User!
   userByEmail(email: String!): User!
