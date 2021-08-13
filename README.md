@@ -4,12 +4,17 @@
 
 ### ✨ Features
 
+##### Core
 - [x] Users table
 - [x] Authentication
-- [ ] Roles table
+- [x] Roles permissions
+- [ ] File uploads
+
+##### Business
 - [ ] Releases table
 - [ ] Tracks table
-- [ ] File uploads
+
+##### Deploy
 - [ ] SSL + Proxy (Docker compose)
 
 ### 🎲 Requirements

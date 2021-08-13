@@ -1,6 +1,8 @@
 import { ObjectType, Field, ID, HideField } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 import { hashPasswordTransform } from 'src/common/transformers/crypto-transform';
+import { Role } from 'src/roles/roles.enum';
 
 @ObjectType()
 @Entity()
@@ -20,4 +22,7 @@ export class User {
   })
   @HideField()
   password: string;
+
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  role: Role;
 }
