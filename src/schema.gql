@@ -2,50 +2,50 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: ID!
-  name: String!
+input AuthInput {
   email: String!
-  role: Role!
-}
-
-enum Role {
-  USER
-  ADMIN
+  password: String!
 }
 
 type AuthType {
-  user: User!
   token: String!
+  user: User!
 }
 
-type Query {
-  me: User!
-  users: [User!]!
-  user(id: String!): User!
-  userByEmail(email: String!): User!
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
 }
 
 type Mutation {
   createUser(data: CreateUserInput!): User!
-  updateUser(data: UpdateUserInput!, id: String!): User!
   deleteUser(id: String!): User!
   login(data: AuthInput!): AuthType!
+  updateUser(data: UpdateUserInput!, id: String!): User!
 }
 
-input CreateUserInput {
-  name: String!
-  email: String!
-  password: String!
+type Query {
+  me: User!
+  user(id: String!): User!
+  userByEmail(email: String!): User!
+  users: [User!]!
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 
 input UpdateUserInput {
-  name: String
   email: String
+  name: String
   password: String
 }
 
-input AuthInput {
+type User {
   email: String!
-  password: String!
+  id: ID!
+  name: String!
+  role: Role!
 }
