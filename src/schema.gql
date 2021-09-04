@@ -12,29 +12,99 @@ type AuthType {
   user: User!
 }
 
+input CreateReleaseInput {
+  catalog: String!
+  contract: Boolean
+  date: DateTime!
+  descritpion: String!
+  name: String!
+  notes: String
+  royalty: Royalty
+  status: Status!
+  type: Type!
+  userId: String!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
   password: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Mutation {
+  createRelease(data: CreateReleaseInput!): Release!
   createUser(data: CreateUserInput!): User!
+  deleteRelease(id: String!): Release!
   deleteUser(id: String!): User!
   login(data: AuthInput!): AuthType!
+  updateRelease(data: UpdateReleaseInput!, id: String!): Release!
   updateUser(data: UpdateUserInput!, id: String!): User!
 }
 
 type Query {
   me: User!
+  release(id: String!): Release!
+  releases: [Release!]!
   user(id: String!): User!
   userByEmail(email: String!): User!
   users: [User!]!
 }
 
+type Release {
+  catalog: String
+  contract: Boolean
+  date: DateTime
+  description: String
+  id: ID!
+  name: String!
+  notes: String
+  royalty: Royalty
+  status: Status
+  type: Type
+  user: User!
+}
+
 enum Role {
   ADMIN
   USER
+}
+
+enum Royalty {
+  ALL
+  HALF
+  STANDARD
+}
+
+enum Status {
+  ANALISE
+  APROVADO
+  CORRIGIR
+  LANCADO
+  REPROVADO
+}
+
+enum Type {
+  ALBUM
+  EP
+  SINGLE
+}
+
+input UpdateReleaseInput {
+  catalog: String
+  contract: Boolean
+  date: DateTime
+  descritpion: String
+  name: String
+  notes: String
+  royalty: Royalty
+  status: Status
+  type: Type
+  userId: String
 }
 
 input UpdateUserInput {
@@ -47,5 +117,6 @@ type User {
   email: String!
   id: ID!
   name: String!
+  releases: [Release!]!
   role: Role!
 }
