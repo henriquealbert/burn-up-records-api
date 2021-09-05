@@ -8,7 +8,7 @@
 - [x] Users table
 - [x] Authentication
 - [x] Roles permissions
-- [ ] File uploads
+- [x] File uploads
 
 ##### Business
 - [x] Releases table
