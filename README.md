@@ -11,8 +11,11 @@
 - [ ] File uploads
 
 ##### Business
-- [ ] Releases table
+- [x] Releases table
 - [ ] Tracks table
+- [ ] Emails
+- [ ] Statments table
+- [ ] Web Scrapping
 
 ##### Deploy
 - [ ] SSL + Proxy (Docker compose)
