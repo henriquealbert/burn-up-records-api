@@ -29,6 +29,7 @@ input CreateUserInput {
   avatarUrl: String
   email: String!
   name: String
+  onboardingCompleted: Boolean
   password: String!
 }
 
@@ -116,6 +117,7 @@ input UpdateUserInput {
   avatarUrl: String
   email: String
   name: String
+  onboardingCompleted: Boolean
   password: String
 }
 
@@ -127,6 +129,7 @@ type User {
   email: String!
   id: ID!
   name: String
+  onboardingCompleted: Boolean
   releases: [Release!]!
   role: Role!
 }
