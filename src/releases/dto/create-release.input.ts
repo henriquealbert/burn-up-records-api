@@ -20,7 +20,7 @@ export class CreateReleaseInput {
 
   @IsString()
   @IsNotEmpty({ message: 'Description is required' })
-  descritpion: string;
+  description: string;
 
   @IsDate()
   @IsNotEmpty({ message: 'Release date is required' })

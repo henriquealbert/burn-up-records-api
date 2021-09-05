@@ -18,28 +18,40 @@ export class Release {
   name: string;
 
   @Column()
-  description?: string;
+  description: string;
 
   @Column()
-  date?: Date;
+  date: Date;
 
   @Column({ type: 'enum', enum: Type, default: Type.SINGLE })
-  type?: Type;
+  type: Type;
 
-  @Column({ type: 'enum', enum: Royalty, default: Royalty.STANDARD })
+  @Column({
+    type: 'enum',
+    enum: Royalty,
+    default: Royalty.STANDARD,
+    nullable: true
+  })
   royalty?: Royalty;
 
-  @Column({ default: false })
+  @Column({ default: false, nullable: true })
   contract?: boolean;
 
-  @Column({ type: 'enum', enum: Status, default: Status.ANALISE })
-  status?: Status;
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.ANALISE
+  })
+  status: Status;
 
-  @Column()
+  @Column({ nullable: true })
   notes?: string;
 
   @Column()
-  catalog?: string;
+  catalog: string;
+
+  @Column()
+  userId: string;
 
   @ManyToOne(() => User, (user) => user.releases)
   user: User;

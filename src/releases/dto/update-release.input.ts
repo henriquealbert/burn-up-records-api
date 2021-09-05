@@ -20,7 +20,7 @@ export class UpdateReleaseInput extends PartialType(CreateReleaseInput) {
 
   @IsString()
   @IsOptional()
-  descritpion?: string;
+  description?: string;
 
   @IsDate()
   @IsOptional()

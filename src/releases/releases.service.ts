@@ -49,4 +49,14 @@ export class ReleasesService {
     }
     return release;
   }
+
+  async findByUserId(userId: string): Promise<Release[]> {
+    const releases = await this.releaseRepository.find({
+      where: { userId }
+    });
+    if (!releases) {
+      throw new NotFoundException('Releases not found');
+    }
+    return releases;
+  }
 }

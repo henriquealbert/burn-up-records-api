@@ -28,6 +28,6 @@ export class User {
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
 
-  @OneToMany(() => Release, (release) => release.user)
+  @OneToMany(() => Release, (release) => release.user, { nullable: false })
   releases: Release[];
 }

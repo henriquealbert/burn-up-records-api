@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent
+} from '@nestjs/graphql';
 import { ReleasesService } from './releases.service';
 import { Release } from './entities/release.entity';
 import { CreateReleaseInput } from './dto/create-release.input';
@@ -8,10 +15,15 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/roles/roles.enum';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Resolver(() => Release)
 export class ReleasesResolver {
-  constructor(private readonly releasesService: ReleasesService) {}
+  constructor(
+    private readonly releasesService: ReleasesService,
+    private readonly usersService: UsersService
+  ) {}
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Release)
@@ -46,5 +58,19 @@ export class ReleasesResolver {
   @Mutation(() => Release)
   async deleteRelease(@Args('id') id: string): Promise<Release> {
     return await this.releasesService.delete(id);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @ResolveField()
+  async user(@Parent() release: Release): Promise<User> {
+    return this.usersService.findById(release.userId);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Release], { name: 'releasesByUserId' })
+  async findReleasesByUserId(
+    @Args('userId') userId: string
+  ): Promise<Release[]> {
+    return this.releasesService.findByUserId(userId);
   }
 }

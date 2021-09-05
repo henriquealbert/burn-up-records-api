@@ -16,7 +16,7 @@ input CreateReleaseInput {
   catalog: String!
   contract: Boolean
   date: DateTime!
-  descritpion: String!
+  description: String!
   name: String!
   notes: String
   royalty: Royalty
@@ -50,23 +50,25 @@ type Query {
   me: User!
   release(id: String!): Release!
   releases: [Release!]!
+  releasesByUserId(userId: String!): [Release!]!
   user(id: String!): User!
   userByEmail(email: String!): User!
   users: [User!]!
 }
 
 type Release {
-  catalog: String
+  catalog: String!
   contract: Boolean
-  date: DateTime
-  description: String
+  date: DateTime!
+  description: String!
   id: ID!
   name: String!
   notes: String
   royalty: Royalty
-  status: Status
-  type: Type
+  status: Status!
+  type: Type!
   user: User!
+  userId: String!
 }
 
 enum Role {
@@ -98,7 +100,7 @@ input UpdateReleaseInput {
   catalog: String
   contract: Boolean
   date: DateTime
-  descritpion: String
+  description: String
   name: String
   notes: String
   royalty: Royalty

@@ -1,7 +1,7 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum Status {
-  ANALISE = 'EM ANÁLISE',
+  ANALISE = 'ANÁLISE',
   APROVADO = 'APROVADO',
   REPROVADO = 'REPROVADO',
   LANCADO = 'LANÇADO',
