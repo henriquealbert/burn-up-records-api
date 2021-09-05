@@ -1,5 +1,12 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent
+} from '@nestjs/graphql';
 
 import { CurrentUser } from './currentUser';
 import { UsersService } from './users.service';
@@ -11,10 +18,15 @@ import { Role } from 'src/roles/roles.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { Release } from 'src/releases/entities/release.entity';
+import { ReleasesService } from 'src/releases/releases.service';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly releasesRepository: ReleasesService
+  ) {}
 
   @Mutation(() => User)
   async createUser(@Args('data') data: CreateUserInput): Promise<User> {
@@ -59,5 +71,11 @@ export class UsersResolver {
   @Mutation(() => User)
   async deleteUser(@Args('id') id: string): Promise<User> {
     return await this.usersService.delete(id);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @ResolveField()
+  async releases(@Parent() user: User): Promise<Release[]> {
+    return this.releasesRepository.findByUserId(user.id);
   }
 }
