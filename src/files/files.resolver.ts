@@ -9,7 +9,7 @@ import { FilesService } from './files.service';
 export class FilesResolver {
   constructor(private readonly filesService: FilesService) {}
 
-  // @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => String)
   async uploadFile(
     @Args({ name: 'file', type: () => GraphQLUpload })
