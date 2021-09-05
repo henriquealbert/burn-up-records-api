@@ -13,8 +13,8 @@ export class User {
   @Field(() => ID)
   id: string;
 
-  @Column()
-  name: string;
+  @Column({ nullable: true })
+  name?: string;
 
   @Column({ unique: true })
   email: string;
@@ -30,4 +30,7 @@ export class User {
 
   @OneToMany(() => Release, (release) => release.user, { nullable: false })
   releases: Release[];
+
+  @Column({ nullable: true })
+  avatarUrl?: string;
 }
