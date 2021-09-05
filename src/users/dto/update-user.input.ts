@@ -10,11 +10,16 @@ export class UpdateUserInput {
 
   @IsOptional()
   @IsEmail()
-  @IsNotEmpty({ message: 'Invalid E-mail' })
+  @IsNotEmpty({ message: 'Invalid e-mail' })
   email?: string;
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty({ message: 'Password is required' })
+  @IsNotEmpty({ message: 'Invalid password' })
   password?: string;
+
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty({ message: 'Invalid avatar url' })
+  avatarUrl?: string;
 }

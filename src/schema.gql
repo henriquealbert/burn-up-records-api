@@ -26,8 +26,9 @@ input CreateReleaseInput {
 }
 
 input CreateUserInput {
+  avatarUrl: String
   email: String!
-  name: String!
+  name: String
   password: String!
 }
 
@@ -39,11 +40,13 @@ scalar DateTime
 type Mutation {
   createRelease(data: CreateReleaseInput!): Release!
   createUser(data: CreateUserInput!): User!
+  deleteFile(fileName: String!): Boolean!
   deleteRelease(id: String!): Release!
   deleteUser(id: String!): User!
   login(data: AuthInput!): AuthType!
   updateRelease(data: UpdateReleaseInput!, id: String!): Release!
   updateUser(data: UpdateUserInput!, id: String!): User!
+  uploadFile(file: Upload!): String!
 }
 
 type Query {
@@ -110,15 +113,20 @@ input UpdateReleaseInput {
 }
 
 input UpdateUserInput {
+  avatarUrl: String
   email: String
   name: String
   password: String
 }
 
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type User {
+  avatarUrl: String
   email: String!
   id: ID!
-  name: String!
+  name: String
   releases: [Release!]!
   role: Role!
 }

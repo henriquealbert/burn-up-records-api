@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ReleasesModule } from './releases/releases.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { ReleasesModule } from './releases/releases.module';
     }),
     UsersModule,
     AuthModule,
-    ReleasesModule
+    ReleasesModule,
+    FilesModule
   ],
   controllers: [],
   providers: []
