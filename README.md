@@ -12,7 +12,7 @@
 
 ##### Business
 - [x] Releases table
-- [ ] Tracks table
+- [x] Tracks table
 - [ ] Emails
 - [ ] Statments table
 - [ ] Web Scrapping
