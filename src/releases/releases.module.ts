@@ -5,12 +5,13 @@ import { ReleasesService } from './releases.service';
 import { ReleasesResolver } from './releases.resolver';
 import { Release } from './entities/release.entity';
 import { UsersModule } from 'src/users/users.module';
-import { User } from 'src/users/entities/user.entity';
+import { TracksModule } from 'src/tracks/tracks.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Release, User]),
-    forwardRef(() => UsersModule)
+    TypeOrmModule.forFeature([Release]),
+    forwardRef(() => UsersModule),
+    forwardRef(() => TracksModule)
   ],
   providers: [ReleasesResolver, ReleasesService],
   exports: [ReleasesService]

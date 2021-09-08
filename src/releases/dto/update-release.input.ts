@@ -53,4 +53,8 @@ export class UpdateReleaseInput extends PartialType(CreateReleaseInput) {
   @IsUUID()
   @IsOptional()
   userId?: string;
+
+  @IsString()
+  @IsOptional()
+  artworkUrl?: string;
 }

@@ -13,6 +13,7 @@ type AuthType {
 }
 
 input CreateReleaseInput {
+  artworkUrl: String!
   catalog: String!
   contract: Boolean
   date: DateTime!
@@ -23,6 +24,18 @@ input CreateReleaseInput {
   status: Status!
   type: Type!
   userId: String!
+}
+
+input CreateTrackInput {
+  EAN: String
+  ISRC: String
+  artists: String!
+  genre: String!
+  mixName: String!
+  name: String!
+  releaseId: String!
+  remixer: String
+  url: String!
 }
 
 input CreateUserInput {
@@ -40,12 +53,15 @@ scalar DateTime
 
 type Mutation {
   createRelease(data: CreateReleaseInput!): Release!
+  createTrack(data: CreateTrackInput!): Track!
   createUser(data: CreateUserInput!): User!
   deleteFile(fileName: String!): Boolean!
   deleteRelease(id: String!): Release!
+  deleteTrack(id: String!): Track!
   deleteUser(id: String!): User!
   login(data: AuthInput!): AuthType!
   updateRelease(data: UpdateReleaseInput!, id: String!): Release!
+  updateTrack(data: UpdateTrackInput!, id: String!): Track!
   updateUser(data: UpdateUserInput!, id: String!): User!
   uploadFile(file: Upload!): String!
 }
@@ -55,12 +71,15 @@ type Query {
   release(id: String!): Release!
   releases: [Release!]!
   releasesByUserId(userId: String!): [Release!]!
+  track(id: String!): Track!
+  tracks: [Track!]!
   user(id: String!): User!
   userByEmail(email: String!): User!
   users: [User!]!
 }
 
 type Release {
+  artworkUrl: String!
   catalog: String!
   contract: Boolean
   date: DateTime!
@@ -70,6 +89,7 @@ type Release {
   notes: String
   royalty: Royalty
   status: Status!
+  tracks: [Track!]!
   type: Type!
   user: User!
   userId: String!
@@ -94,6 +114,20 @@ enum Status {
   REPROVADO
 }
 
+type Track {
+  EAN: String
+  ISRC: String
+  artists: String!
+  genre: String!
+  id: ID!
+  mixName: String!
+  name: String!
+  release: Release!
+  releaseId: String!
+  remixer: String
+  url: String!
+}
+
 enum Type {
   ALBUM
   EP
@@ -101,6 +135,7 @@ enum Type {
 }
 
 input UpdateReleaseInput {
+  artworkUrl: String
   catalog: String
   contract: Boolean
   date: DateTime
@@ -111,6 +146,18 @@ input UpdateReleaseInput {
   status: Status
   type: Type
   userId: String
+}
+
+input UpdateTrackInput {
+  EAN: String
+  ISRC: String
+  artists: String
+  genre: String
+  mixName: String
+  name: String
+  releaseId: String
+  remixer: String
+  url: String
 }
 
 input UpdateUserInput {

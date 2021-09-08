@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ReleasesModule } from './releases/releases.module';
 import { FilesModule } from './files/files.module';
+import { TracksModule } from './tracks/tracks.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { FilesModule } from './files/files.module';
     UsersModule,
     AuthModule,
     ReleasesModule,
-    FilesModule
+    FilesModule,
+    TracksModule
   ],
   controllers: [],
   providers: []

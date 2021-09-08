@@ -53,4 +53,8 @@ export class CreateReleaseInput {
   @IsUUID()
   @IsNotEmpty({ message: 'User is required' })
   userId: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'Artwork Url is required' })
+  artworkUrl: string;
 }
