@@ -1,11 +1,18 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 
 import { Type } from '../enums/type.enum';
 import { Status } from '../enums/status.enum';
 import { Royalty } from '../enums/royalty.enum';
 
 import { User } from 'src/users/entities/user.entity';
+import { Track } from 'src/tracks/entities/track.entity';
 
 @ObjectType()
 @Entity()
@@ -56,5 +63,9 @@ export class Release {
   @ManyToOne(() => User, (user) => user.releases)
   user: User;
 
-  // TODO: Add tracks, add artwork
+  @Column()
+  artworkUrl: string;
+
+  @OneToMany(() => Track, (track) => track.release, { nullable: false })
+  tracks: Track[];
 }
