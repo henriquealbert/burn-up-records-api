@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent
+} from '@nestjs/graphql';
 import { TracksService } from './tracks.service';
 import { Track } from './entities/track.entity';
 import { CreateTrackInput } from './dto/create-track.input';
@@ -8,10 +15,15 @@ import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/roles/roles.enum';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { Release } from 'src/releases/entities/release.entity';
+import { ReleasesService } from 'src/releases/releases.service';
 
 @Resolver(() => Track)
 export class TracksResolver {
-  constructor(private readonly tracksService: TracksService) {}
+  constructor(
+    private readonly tracksService: TracksService,
+    private readonly releasesService: ReleasesService
+  ) {}
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Track)
@@ -44,5 +56,11 @@ export class TracksResolver {
   @Mutation(() => Track)
   async deleteTrack(@Args('id') id: string): Promise<Track> {
     return await this.tracksService.delete(id);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @ResolveField()
+  async release(@Parent() track: Track): Promise<Release> {
+    return await this.releasesService.findById(track.releaseId);
   }
 }

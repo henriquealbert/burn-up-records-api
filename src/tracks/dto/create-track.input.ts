@@ -36,7 +36,7 @@ export class CreateTrackInput {
 
   @IsString()
   @IsNotEmpty({ message: 'Genre is required' })
-  genre?: string;
+  genre: string;
 
   @IsUUID()
   @IsNotEmpty({ message: 'Release ID is required' })

@@ -30,7 +30,7 @@ input CreateTrackInput {
   EAN: String
   ISRC: String
   artists: String!
-  genre: String
+  genre: String!
   mixName: String!
   name: String!
   releaseId: String!

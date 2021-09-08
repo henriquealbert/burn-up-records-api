@@ -17,12 +17,15 @@ import { Role } from 'src/roles/roles.enum';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
+import { Track } from 'src/tracks/entities/track.entity';
+import { TracksService } from 'src/tracks/tracks.service';
 
 @Resolver(() => Release)
 export class ReleasesResolver {
   constructor(
     private readonly releasesService: ReleasesService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
+    private readonly tracksService: TracksService
   ) {}
 
   @UseGuards(GqlAuthGuard)
@@ -72,5 +75,11 @@ export class ReleasesResolver {
     @Args('userId') userId: string
   ): Promise<Release[]> {
     return this.releasesService.findByUserId(userId);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @ResolveField()
+  async tracks(@Parent() release: Release): Promise<Track[]> {
+    return this.tracksService.findByReleaseId(release.id);
   }
 }

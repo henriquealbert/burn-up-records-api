@@ -49,4 +49,14 @@ export class TracksService {
     }
     return track;
   }
+
+  async findByReleaseId(releaseId: string): Promise<Track[]> {
+    const tracks = await this.trackRepository.find({
+      where: { releaseId }
+    });
+    if (!tracks) {
+      throw new NotFoundException('Tracks not found');
+    }
+    return tracks;
+  }
 }
