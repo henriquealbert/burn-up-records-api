@@ -2,10 +2,12 @@ import { InputType } from '@nestjs/graphql';
 import {
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString
 } from 'class-validator';
+import { Plan } from '../enums/plan.enum';
 
 @InputType()
 export class CreateUserInput {
@@ -28,4 +30,8 @@ export class CreateUserInput {
   @IsBoolean()
   @IsOptional()
   onboardingCompleted?: boolean;
+
+  @IsEnum(Plan)
+  @IsOptional()
+  plan?: Plan;
 }

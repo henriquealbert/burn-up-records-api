@@ -5,6 +5,7 @@ import { hashPasswordTransform } from 'src/common/transformers/crypto-transform'
 import { Role } from 'src/roles/roles.enum';
 
 import { Release } from 'src/releases/entities/release.entity';
+import { Plan } from '../enums/plan.enum';
 
 @ObjectType()
 @Entity()
@@ -36,4 +37,7 @@ export class User {
 
   @Column({ nullable: true, default: false })
   onboardingCompleted?: boolean;
+
+  @Column({ type: 'enum', enum: Plan, default: Plan.FREE })
+  plan: Plan;
 }

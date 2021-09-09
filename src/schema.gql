@@ -44,6 +44,7 @@ input CreateUserInput {
   name: String
   onboardingCompleted: Boolean
   password: String!
+  plan: Plan
 }
 
 """
@@ -64,6 +65,11 @@ type Mutation {
   updateTrack(data: UpdateTrackInput!, id: String!): Track!
   updateUser(data: UpdateUserInput!, id: String!): User!
   uploadFile(file: Upload!): String!
+}
+
+enum Plan {
+  FREE
+  PREMIUM
 }
 
 type Query {
@@ -166,6 +172,7 @@ input UpdateUserInput {
   name: String
   onboardingCompleted: Boolean
   password: String
+  plan: Plan
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -177,6 +184,7 @@ type User {
   id: ID!
   name: String
   onboardingCompleted: Boolean
+  plan: Plan!
   releases: [Release!]!
   role: Role!
 }
