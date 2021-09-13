@@ -1,11 +1,17 @@
 import { ObjectType, Field, ID, HideField } from '@nestjs/graphql';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { hashPasswordTransform } from 'src/common/transformers/crypto-transform';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 
 import { Role } from 'src/roles/roles.enum';
 
 import { Release } from 'src/releases/entities/release.entity';
 import { Plan } from '../enums/plan.enum';
+import { hash } from 'bcrypt';
 
 @ObjectType()
 @Entity()
@@ -20,11 +26,14 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({
-    transformer: hashPasswordTransform
-  })
+  @Column({ type: 'varchar', name: 'password' })
   @HideField()
   password: string;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await hash(this.password, 8);
+  }
 
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;

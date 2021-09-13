@@ -43,9 +43,6 @@ export class UsersService {
 
   async update(id: string, data: UpdateUserInput): Promise<User> {
     const user = await this.findById(id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
     return this.userRepository.save({ ...user, ...data });
   }
 
