@@ -1,4 +1,4 @@
-import { compareSync } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 
@@ -17,8 +17,7 @@ export class AuthService {
 
   async validateUser(data: AuthInput): Promise<AuthType> {
     const user = await this.usersService.findByEmail(data.email);
-
-    const validPasssword = compareSync(data.password, user.password);
+    const validPasssword = await compare(data.password, user.password);
 
     if (!validPasssword) {
       throw new UnauthorizedException('Incorrect password');
