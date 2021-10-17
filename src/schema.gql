@@ -56,7 +56,6 @@ type Mutation {
   createRelease(data: CreateReleaseInput!): Release!
   createTrack(data: CreateTrackInput!): Track!
   createUser(data: CreateUserInput!): User!
-  deleteFile(fileName: String!): Boolean!
   deleteRelease(id: String!): Release!
   deleteTrack(id: String!): Track!
   deleteUser(id: String!): User!
@@ -64,7 +63,6 @@ type Mutation {
   updateRelease(data: UpdateReleaseInput!, id: String!): Release!
   updateTrack(data: UpdateTrackInput!, id: String!): Track!
   updateUser(data: UpdateUserInput!, id: String!): User!
-  uploadFile(file: Upload!): String!
 }
 
 enum Plan {
@@ -174,9 +172,6 @@ input UpdateUserInput {
   password: String
   plan: Plan
 }
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 type User {
   avatarUrl: String
